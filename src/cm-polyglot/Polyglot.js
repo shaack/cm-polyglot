@@ -1,8 +1,9 @@
 /**
  * Author: Stefan Haack (https://shaack.com)
- * Date: 2021-12-10
+ * Repository: https://github.com/shaack/cm-polyglot
+ * License: MIT, see file "LINCENSE"
  *
- * An ES6 wrapper for the ployglot part of https://github.com/johnfontaine/chess-tools
+ * An ES6 wrapper for the ployglot part of https://github.com/evilwan/stakelbase
  */
 
 import {Book} from "../stakelbase/Book.js"
@@ -15,7 +16,7 @@ export class Polyglot {
         this.book = null
         this.initialisation = new Promise((resolve) => {
             /** @var book Book */
-            this.readOpeningBook(url).then((book) => {
+            this.fetchBook(url).then((book) => {
                 this.book = book
                 resolve()
             })
@@ -23,8 +24,38 @@ export class Polyglot {
         this.keyGenerator = new KeyGenerator()
     }
 
-    rawMoveToSan(rawMove) {
+    /**
+        @returns move { from: 'h7', to:'h8', promotion: 'q' }
+     */
+    entryToMove(bookEntry) {
+        const move = {
+            from: undefined,
+            to: undefined,
+            promotion: undefined
+        }
+        const files = "abcdefgh"
+        const promoPieces = " nbrq"
 
+        move.from = files[bookEntry.get_from_col()]
+        move.from = "" + move.from + (bookEntry.get_from_row() + 1)
+        move.to = files[bookEntry.get_to_col()]
+        move.to = "" + move.to + (bookEntry.get_to_row() + 1)
+
+        if (bookEntry.get_promo_piece() > 0) {
+            move.promotion = promoPieces[bookEntry.get_promo_piece()]
+        }
+        // special castling moves notation in polyglot, see http://hgm.nubati.net/book_format.html
+        if(bookEntry.isOOW()) {
+            move.to = "g1"
+        } else if(bookEntry.isOOOW()) {
+            move.to = "c1"
+        } else if(bookEntry.isOOB()) {
+            move.to = "g8"
+        } else if(bookEntry.isOOOB()) {
+            move.to = "c8"
+        }
+        move.weight = bookEntry.weight
+        return move
     }
 
     async getMovesFromFen(fen) {
@@ -32,16 +63,24 @@ export class Polyglot {
             this.initialisation.then(() => {
                 const hash = this.keyGenerator.compute_fen_hash(fen)
                 const bookEntries = this.book.get_all_moves(hash)
+                const moves = []
+                let weightSum = 0
                 for (const bookEntry of bookEntries) {
-                    console.log("from", bookEntry.get_from_col(), bookEntry.get_from_row(),
-                            "to", bookEntry.get_to_col(), bookEntry.get_to_row(), "weight", bookEntry.weight)
+                    moves.push(this.entryToMove(bookEntry))
+                    weightSum += bookEntry.weight
                 }
-                resolve()
+                // calculate probability  http://hgm.nubati.net/book_format.html
+                for (const move of moves) {
+                    const weightPower = 0.2
+                    move.probability = Math.pow(move.weight / weightSum, weightPower)
+                        .toFixed(1)
+                }
+                resolve(moves)
             })
         })
     }
 
-    readOpeningBook(url) {
+    fetchBook(url) {
         return new Promise((resolve, reject) => {
             fetch(url).then((response) => {
                 response.blob().then((blob) => {

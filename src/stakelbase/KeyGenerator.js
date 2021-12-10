@@ -215,6 +215,7 @@ const random64 = [
 export class KeyGenerator {
 
     constructor() {
+        // noinspection JSUnusedGlobalSymbols
         this.bail_out = false
         this.en_passant_row = -1
         this.en_passant_column = -1
@@ -224,6 +225,7 @@ export class KeyGenerator {
 //
 // Utility function to convert BigInt values to hex string of fixed size
 //
+    // noinspection JSUnusedGlobalSymbols
     bn2hex(bn, the_size) {
         let hex = bn.toString()
         while (hex.length < the_size) {
