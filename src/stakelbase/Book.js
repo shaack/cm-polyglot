@@ -40,10 +40,6 @@ class BookEntry {
         this.learn = learn
     }
 
-    //
-    // Various accessor methods
-    //
-
     get_key() {
         return this.key
     }
@@ -68,11 +64,9 @@ class BookEntry {
         return (this.raw_move >> 12) & 0x0007
     }
 
-    //
     // Polyglot uses its own convention for castling: provide
     // accessor methods for finding out which type of castling
     // is encoded in current move.
-    //
     isOOW() {
         return this.raw_move === 0x0107
     }
@@ -93,6 +87,7 @@ class BookEntry {
 
 // representation of a Polyglot binary opening book
 export class Book {
+
     constructor(bookdata) {
         this.bookdata = bookdata
         this.cache = []	// cache so that we parse each entry at most one time
@@ -188,7 +183,7 @@ export class Book {
         return i
     }
 
-    // Get all entries for given FEN position
+    // Get all entries for given hash
     get_all_moves(weed) {
         let i = this.find_first_hash(weed)
         if (i < 0) {
@@ -202,4 +197,5 @@ export class Book {
         }
         return lst
     }
+
 }
