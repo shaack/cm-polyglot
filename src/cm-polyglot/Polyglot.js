@@ -17,11 +17,14 @@ export class Polyglot {
             /** @var book Book */
             this.readOpeningBook(url).then((book) => {
                 this.book = book
-                console.log(book.get_entry(7))
                 resolve()
             })
         })
         this.keyGenerator = new KeyGenerator()
+    }
+
+    rawMoveToSan(rawMove) {
+
     }
 
     async getMovesFromFen(fen) {
@@ -30,7 +33,8 @@ export class Polyglot {
                 const hash = this.keyGenerator.compute_fen_hash(fen)
                 const bookEntries = this.book.get_all_moves(hash)
                 for (const bookEntry of bookEntries) {
-                    console.log(bookEntry)
+                    console.log("from", bookEntry.get_from_col(), bookEntry.get_from_row(),
+                            "to", bookEntry.get_to_col(), bookEntry.get_to_row(), "weight", bookEntry.weight)
                 }
                 resolve()
             })

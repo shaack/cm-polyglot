@@ -150,21 +150,21 @@ class BookEntry {
         const t = this.to_square_idx(this.get_to_row(), this.get_to_col())
         let mv
         if (this.isOOW()) {
-            mv = new Move(Constants.POS_E1, Constants.POS_G1)
-            mv.setCastling(Constants.SHORT_CASTLING)
+            mv = new Move(C.POS_E1, C.POS_G1)
+            mv.setCastling(C.SHORT_CASTLING)
         } else if (this.isOOB()) {
-            mv = new Move(Constants.POS_E8, Constants.POS_G8)
-            mv.setCastling(Constants.SHORT_CASTLING)
+            mv = new Move(C.POS_E8, C.POS_G8)
+            mv.setCastling(C.SHORT_CASTLING)
         } else if (this.isOOOW()) {
-            mv = new Move(Constants.POS_E1, Constants.POS_C1)
-            mv.setCastling(Constants.LONG_CASTLING)
+            mv = new Move(C.POS_E1, C.POS_C1)
+            mv.setCastling(C.LONG_CASTLING)
         } else if (this.isOOOB()) {
-            mv = new Move(Constants.POS_E8, Constants.POS_C8)
-            mv.setCastling(Constants.LONG_CASTLING)
+            mv = new Move(C.POS_E8, C.POS_C8)
+            mv.setCastling(C.LONG_CASTLING)
         } else {
             mv = new Move(f, t)
         }
-        return mv
+        return {f:f,t:t}
     }
 }
 

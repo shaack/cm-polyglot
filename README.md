@@ -6,4 +6,6 @@ https://github.com/evilwan/stakelbase.
 ## References
 
 - https://github.com/evilwan/stakelbase
+- http://hgm.nubati.net/book_format.html
 - https://shinkarom.github.io/zobrist/
+- https://javascript.hotexamples.com/de/examples/chess/js.Chess/fen/javascript-js.chess-fen-method-examples.html
