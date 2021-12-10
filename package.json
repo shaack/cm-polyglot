@@ -1,6 +1,6 @@
 {
   "name": "cm-polyglot",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "An ES6 port of the polyglot opening book reading and handling parts of evilwan/stakelbase",
   "main": "index.js",
   "scripts": {
