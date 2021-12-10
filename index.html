@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script type="module">
+    import {Polyglot} from "./src/cm-polyglot/Polyglot.js"
+    const polyglot = new Polyglot("./assets/books/openings.bin")
+    const startingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+    console.log(startingPosition, await polyglot.getMovesFromFen(startingPosition))
+    const positionFewMoves = "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 1"
+    console.log(positionFewMoves, await polyglot.getMovesFromFen(positionFewMoves))
+    const positionEndGame = "8/8/8/2k5/4K3/8/8/8"
+    console.log(positionEndGame, await polyglot.getMovesFromFen(positionEndGame))
+</script>
+</body>
+</html>

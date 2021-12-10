@@ -45,7 +45,7 @@
 //
 //////////////////////////////////////////////////
 
-class StakelBaseConstants {
+export class Constants {
     constructor() {
         //
         // Color bitmasks: OR them with piece codes for
@@ -152,4 +152,3 @@ class StakelBaseConstants {
 	return ["a", "b", "c", "d", "e", "f", "g", "h"][k >> 3] + ((k & 7) + 1);
     }
 }
-var C = new StakelBaseConstants();
