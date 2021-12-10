@@ -58,7 +58,7 @@ export class Polyglot {
         return move
     }
 
-    async getMovesFromFen(fen) {
+    async getMovesFromFen(fen, weightPower = 0.2) {
         return new Promise((resolve) => {
             this.initialisation.then(() => {
                 const hash = this.keyGenerator.compute_fen_hash(fen)
@@ -71,7 +71,6 @@ export class Polyglot {
                 }
                 // calculate probability  http://hgm.nubati.net/book_format.html
                 for (const move of moves) {
-                    const weightPower = 0.2
                     move.probability = Math.pow(move.weight / weightSum, weightPower)
                         .toFixed(1)
                 }
