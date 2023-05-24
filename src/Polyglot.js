@@ -6,8 +6,8 @@
  * An ES6 wrapper for the ployglot part of https://github.com/evilwan/stakelbase
  */
 
-import {Book} from "../stakelbase/Book.js"
-import {KeyGenerator} from "../stakelbase/KeyGenerator.js"
+import {Book} from "../lib/stakelbase/Book.js"
+import {KeyGenerator} from "../lib/stakelbase/KeyGenerator.js"
 
 export class Polyglot {
 

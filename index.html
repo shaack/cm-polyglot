@@ -11,7 +11,7 @@
 <h1>cm-polyglot</h1>
 <p>Logs are in the developer console</p>
 <script type="module">
-    import {Polyglot} from "./src/cm-polyglot/Polyglot.js"
+    import {Polyglot} from "./src/Polyglot.js"
     const polyglot = new Polyglot("./assets/books/openings.bin")
     const startingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
     console.log(startingPosition, await polyglot.getMovesFromFen(startingPosition))
